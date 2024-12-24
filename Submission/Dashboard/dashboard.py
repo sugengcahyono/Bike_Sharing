@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
     st.header("Bike Sharing Dashboard :bike:")
 
-    day_df_csv = "D:/KULIAH/Semester 5/DICODING/Bike_Sharing/day_clean.csv"
+    day_df_csv = "D:/KULIAH/Semester 5/DICODING/Bike_Sharing/Submission/Dashboard/day_clean.csv"
 
 
     day_df = pd.read_csv(day_df_csv)
@@ -196,5 +196,5 @@ if __name__ == "__main__":
     weathersit(weathersit_df)
 
     year_copyright = datetime.date.today().year
-    copyright = "Copyright © " + str(year_copyright) + " | Bike Sharing Dashboard | All Rights Reserved | " + "Made with :heart: by [@HakimIqbal](https://www.linkedin.com/in/muhammad-iqbal-alhakim-0417891a5/)"
+    copyright = "Copyright © " + str(year_copyright) + " | Bike Sharing Dashboard | All Rights Reserved | " + "Made by [@SugengCahyono](https://www.linkedin.com/in/muhammad-iqbal-alhakim-0417891a5/)"
     st.caption(copyright)
