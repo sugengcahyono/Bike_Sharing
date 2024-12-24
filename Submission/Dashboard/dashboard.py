@@ -172,7 +172,7 @@ if __name__ == "__main__":
 
     st.header("Bike Sharing Dashboard :bike:")
 
-    day_df_csv = "D:/KULIAH/Semester 5/DICODING/Bike_Sharing/Submission/Dashboard/day_clean.csv"
+    day_df_csv = "https://raw.githubusercontent.com/sugengcahyono/Bike_Sharing/main/Submission/Dashboard/day_clean.csv"
 
 
     day_df = pd.read_csv(day_df_csv)
