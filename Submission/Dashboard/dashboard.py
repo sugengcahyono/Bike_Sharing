@@ -51,7 +51,7 @@ def sidebar(df):
     max_date = df["dteday"].max()
 
     with st.sidebar:
-        st.image("https://raw.githubusercontent.com/HakimIqbal/BADP-Dicoding/main/Submission/dashboard/Capital Bikeshare Logo.png")
+        st.image("https://raw.githubusercontent.com/sugengcahyono/Bike_Sharing/main/Submission/Dashboard/BikeSharing.png")
 
         def on_change():
             st.session_state.date = date
@@ -196,5 +196,5 @@ if __name__ == "__main__":
     weathersit(weathersit_df)
 
     year_copyright = datetime.date.today().year
-    copyright = "Copyright © " + str(year_copyright) + " | Bike Sharing Dashboard | All Rights Reserved | " + "Made by [@SugengCahyono](https://www.linkedin.com/in/muhammad-iqbal-alhakim-0417891a5/)"
+    copyright = "Copyright © " + str(year_copyright) + " | Bike Sharing Dashboard | All Rights Reserved | " + "Made by [@SugengCahyono](https://www.linkedin.com/in/muhamad-sugeng-cahyono/)"
     st.caption(copyright)
