@@ -10,7 +10,6 @@ def create_season_df(df):
     byseason_df.rename(columns={
         "instant": "sum"
     }, inplace=True)
-
     return byseason_df
 
 def create_yr_df(df):
@@ -18,23 +17,20 @@ def create_yr_df(df):
     byyr_df.rename(columns={
         "instant": "sum"
     }, inplace=True)
-
     return byyr_df
 
 def create_holiday_df(df):
-    byholidyday_df = df.groupby(by="holiday").instant.nunique().reset_index()
-    byholidyday_df.rename(columns={
+    byholiday_df = df.groupby(by="holiday").instant.nunique().reset_index()
+    byholiday_df.rename(columns={
         "instant": "sum"
     }, inplace=True)
-    
-    return byholidyday_df
+    return byholiday_df
 
 def create_workingday_df(df):
     byworkingday_df = df.groupby(by="workingday").instant.nunique().reset_index()
     byworkingday_df.rename(columns={
         "instant": "sum"
     }, inplace=True)
-    
     return byworkingday_df
 
 def create_weathersit_df(df):
@@ -42,7 +38,6 @@ def create_weathersit_df(df):
     byweathersit_df.rename(columns={
         "instant": "sum"
     }, inplace=True)
-
     return byweathersit_df
 
 def sidebar(df):
@@ -51,150 +46,70 @@ def sidebar(df):
     max_date = df["dteday"].max()
 
     with st.sidebar:
-        st.image("https://raw.githubusercontent.com/sugengcahyono/Bike_Sharing/main/Submission/Dashboard/BikeSharing.png")
+        st.image(
+            "https://raw.githubusercontent.com/sugengcahyono/Bike_Sharing/main/Submission/Dashboard/BikeSharing.png", 
+            caption="Bike Sharing Dashboard",
+            use_column_width=True
+        )
 
-        def on_change():
-            st.session_state.date = date
+
 
         date = st.date_input(
             label="Rentang Waktu", 
             min_value=min_date, 
             max_value=max_date,
-            value=[min_date, max_date],
-            on_change=on_change
+            value=[min_date, max_date]
         )
+
 
     return date
 
-def season(df):
-    st.subheader("Season")
+def display_chart(title, x, y, data, xlabel=None, ylabel=None):
+    st.subheader(title)
+    fig, ax = plt.subplots(figsize=(16, 8))
+    sns.barplot(x=x, y=y, data=data, ax=ax, palette="viridis")
+    ax.set_title(title, fontsize=25, color="navy")
 
-    fig, ax = plt.subplots(figsize=(20, 10))
-    sns.barplot(
-        x="season",
-        y="sum",
-        data=df.sort_values(by="season", ascending=False),
-        ax=ax
-    )
-    ax.set_title("Number of Bike Sharing by Season", loc="center", fontsize=30)
-    ax.set_ylabel(None)
-    ax.set_xlabel(None)
-    ax.tick_params(axis="y", labelsize=20)
-    ax.tick_params(axis="x", labelsize=15)
-    st.pyplot(fig)
-
-def year(df):
-    st.subheader("Year")
-
-    fig, ax = plt.subplots(figsize=(20, 10))
-    sns.barplot(
-        x="yr",
-        y="sum",
-        data=df.sort_values(by="yr", ascending=False),
-        ax=ax
-    )
-    ax.set_title("Number of Bike Sharing by Year", loc="center", fontsize=30)
-    ax.set_ylabel(None)
-    ax.set_xlabel(None)
-    ax.tick_params(axis="y", labelsize=20)
-    ax.tick_params(axis="x", labelsize=15)
-    st.pyplot(fig)
-
-def month(df):
-    st.subheader("Month")
-
-    fig, ax = plt.subplots(figsize=(20, 10))
-    sns.barplot(
-        x="mnth",
-        y="cnt",
-        data=df.sort_values(by="mnth", ascending=False),
-        ax=ax
-    )
-    ax.set_title("Number of Bike Sharing by Month", loc="center", fontsize=30)
-    ax.set_ylabel(None)
-    ax.set_xlabel(None)
-    ax.tick_params(axis="x", labelsize=15)
-    st.pyplot(fig)
-
-def holiday(df):
-    st.subheader("Holiday")
-
-    fig, ax = plt.subplots(figsize=(20, 10))
-    sns.barplot(
-        x="holiday",
-        y="sum",
-        data=df.sort_values(by="holiday", ascending=False),
-        ax=ax
-    )
-    ax.set_title("Number of Bike Sharing by Holiday", loc="center", fontsize=30)
-    ax.set_ylabel(None)
-    ax.set_xlabel(None)
-    ax.tick_params(axis="y", labelsize=20)
-    ax.tick_params(axis="x", labelsize=15)
-    st.pyplot(fig)
-
-def workingday(df):
-    st.subheader("Working Day")
-
-    fig, ax = plt.subplots(figsize=(20, 10))
-    sns.barplot(
-        x="workingday",
-        y="sum",
-        data=df.sort_values(by="workingday", ascending=False),
-        ax=ax
-    )
-    ax.set_title("Number of Bike Sharing by Working Day", loc="center", fontsize=30)
-    ax.set_ylabel(None)
-    ax.set_xlabel(None)
-    ax.tick_params(axis="y", labelsize=20)
-    ax.tick_params(axis="x", labelsize=15)
-    st.pyplot(fig)
-
-def weathersit(df):
-    st.subheader("Weather Sit")
-
-    fig, ax = plt.subplots(figsize=(20, 10))
-    sns.barplot(
-        x="weathersit",
-        y="sum",
-        data=df.sort_values(by="weathersit", ascending=False),
-        ax=ax
-    )
-    ax.set_title("Number of Bike Sharing by Weather Sit", loc="center", fontsize=30)
-    ax.set_ylabel(None)
-    ax.set_xlabel(None)
-    ax.tick_params(axis="y", labelsize=20)
-    ax.tick_params(axis="x", labelsize=15)
-    st.pyplot(fig)
+    ax.tick_params(axis="x", labelsize=14)
+    ax.tick_params(axis="y", labelsize=14)
+    sns.despine()
+    st.pyplot(fig)  
 
 if __name__ == "__main__":
-    sns.set(style="dark")
+    sns.set(style="darkgrid")
+    st.title("Bike Sharing Dashboard ")
+    st.markdown("""---""")
 
-    st.header("Bike Sharing Dashboard ")
-
+    # Load data
     day_df_csv = "https://raw.githubusercontent.com/sugengcahyono/Bike_Sharing/main/Submission/Dashboard/day_clean.csv"
-
-
     day_df = pd.read_csv(day_df_csv)
 
+    # Sidebar
     date = sidebar(day_df)
-    if(len(date) == 2):
+    if len(date) == 2:
         main_df = day_df[(day_df["dteday"] >= str(date[0])) & (day_df["dteday"] <= str(date[1]))]
     else:
-        main_df = day_df[(day_df["dteday"] >= str(st.session_state.date[0])) & (day_df["dteday"] <= str(st.session_state.date[1]))]
+        main_df = day_df
 
+    # Create DataFrames for Visualization
     season_df = create_season_df(main_df)
-    season(season_df)
     year_df = create_yr_df(main_df)
-    year(year_df)
-    month(main_df)
     holiday_df = create_holiday_df(main_df)
-    holiday(holiday_df)
     workingday_df = create_workingday_df(main_df)
-    workingday(workingday_df)
     weathersit_df = create_weathersit_df(main_df)
-    weathersit(weathersit_df)
 
+    # Visualizations
+    st.markdown("### Overview of Bike Sharing Data")
+    display_chart("Bike Sharing by Season", "season", "sum", season_df)
+    display_chart("Bike Sharing by Year", "yr", "sum", year_df)
+    display_chart("Bike Sharing by Holiday", "holiday", "sum", holiday_df)
+    display_chart("Bike Sharing by Working Day", "workingday", "sum", workingday_df)
+    display_chart("Bike Sharing by Weather Situation", "weathersit", "sum", weathersit_df)
+
+    # Footer
+    st.markdown("""---""")
     year_copyright = datetime.date.today().year
-    copyright = "Copyright © " + str(year_copyright) + " | Bike Sharing Dashboard | All Rights Reserved | " + "Made by [@SugengCahyono](https://www.linkedin.com/in/muhamad-sugeng-cahyono/)"
-    st.caption(copyright)
+    st.caption(
+        f"Copyright © {year_copyright} | Bike Sharing Dashboard | All Rights Reserved | "
+        f"Made by [@SugengCahyono](https://www.linkedin.com/in/muhamad-sugeng-cahyono/)"
+    )
