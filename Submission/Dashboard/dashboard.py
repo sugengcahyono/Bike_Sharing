@@ -170,7 +170,7 @@ def weathersit(df):
 if __name__ == "__main__":
     sns.set(style="dark")
 
-    st.header("Bike Sharing Dashboard :bike:")
+    st.header("Bike Sharing Dashboard ")
 
     day_df_csv = "https://raw.githubusercontent.com/sugengcahyono/Bike_Sharing/main/Submission/Dashboard/day_clean.csv"
 
