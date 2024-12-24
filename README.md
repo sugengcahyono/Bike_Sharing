@@ -9,7 +9,13 @@
 ## Instalasi
 Ikuti langkah-langkah berikut untuk menjalankan project secara lokal:
 
-    git clone https://github.com/HakimIqbal/BADP_Dicoding.git
+    git clone https://github.com/sugengcahyono/Bike_Sharing.git
+    cd Bike_Sharing
+    pip install pipenv
+    pipenv install
+    pipenv shell
+    pip install -r requirements.txt
+    streamlit run Submission/Dashboard/dashboard.py
 
 
 
